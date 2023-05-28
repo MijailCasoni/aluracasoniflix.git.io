@@ -1,10 +1,10 @@
 import { makeStyles } from "@material-ui/core";
 import React from "react";
 
-const Footer = () => {
+const Home = () => {
     const classes = useStyles();
     return (
-        <div>Footer</div>
+        <div>Rows</div>
     )
 };
 
@@ -15,4 +15,8 @@ const useStyles = makeStyles((theme) => ({
 },
 }));
 
-export default Footer;
+export default Rows;
+
+
+
+

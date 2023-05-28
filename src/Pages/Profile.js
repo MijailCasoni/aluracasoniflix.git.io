@@ -1,18 +1,17 @@
 import { makeStyles } from "@material-ui/core";
 import React from "react";
 
-const Footer = () => {
+const Profile = () => {
     const classes = useStyles();
     return (
-        <div>Footer</div>
+        <div>Profile</div>
     )
 };
-
 const useStyles = makeStyles((theme) => ({
     root: {
     /*backgroundColor:"#111",*/
     minHeight: "100vh",
-},
-}));
+}}));
 
-export default Footer;
+
+export default Profile;
