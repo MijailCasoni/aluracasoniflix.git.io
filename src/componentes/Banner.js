@@ -2,6 +2,7 @@ import { Button, Typography, makeStyles } from "@material-ui/core";
 import React from "react";
 import HeroBanner from "../img/banner.jpg"
 
+
 const Banner = () => {
     const classes = useStyles();
 
@@ -14,14 +15,15 @@ const Banner = () => {
                     MoveTitle
                 </Typography>
             <div className={classes.buttons}>
-                <Button>Play</Button>
-                <Button>My List</Button>
+                <Button>Reproducción</Button>
+                <Button>Mi lista</Button>
             </div>
-            <Typography variant="h6" className={classes.description}>
-                {
-                    truncate("")
-                }
-            </Typography>
+                <Typography style={{wordWrap: "break-word"}} variant="h6" className={classes.description}>
+                    {
+                        truncate("", 160)
+                    }
+                </Typography>
+                <div className={classes.gradiente}/>
             </div>
         </div>
     )
@@ -33,10 +35,11 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     height: "440px",
     objectFit: "contain",
-    backgruondSize: "cover",
+    backgroundSize: "cover",
     backgroundPosition: "center",
-    color: "#ffff"
+    color: "#ffff",
 },
+
 buttons:{
     "& button": {
         cursor: "pointer",
@@ -45,13 +48,24 @@ buttons:{
         borderRadius: "5px",
         padding: theme.spacing(1, 4, 1, 4),
         marginRight: "1rem",
-        backgroundColor: "rgba(51,51,51,9.5)",
+        backgroundColor: "rgba(51,51,51,0.5)",
     },
     "& button:hover": {
         color: "#000",
         backgroundColor: "#e6e6e6",
-    },
-}
+    }
+},
+
+gradiente: {
+    position: "absolute",
+    top: "30vh",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    zIndex: 99,
+    backgroundImage:
+        "linear-gradient(180deg, transparent, rgba(37,37,37,0.61), #111)",
+},
 }));
 
 export default Banner;

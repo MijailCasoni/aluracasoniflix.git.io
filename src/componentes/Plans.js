@@ -1,10 +1,12 @@
 import { makeStyles } from "@material-ui/core";
 import React from "react";
 
-const Plans = () => {
+const Plans = (cost, children) => {
     const classes = useStyles();
     return (
-        <div>Plans</div>
+        <div>
+            {children}
+        </div>
     )
 };
 
