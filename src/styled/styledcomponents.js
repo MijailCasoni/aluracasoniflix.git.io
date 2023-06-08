@@ -9,16 +9,25 @@ height: 30px;
 border-radius: 5px;
 border: none;
 `
+const handlewidth = wide => {
+    switch (wide){
+        case "fullWidth" : return "100%";
+        case "medium" : return "260px";
+        default : return "160px"
+    }
+}
+
 
 export const CasflixButton = styled.button`
 z-index: 15;
-background-color: #2A7AE4;
+background-color: ${({color}) => color === "gray" ? "lightgray": "#2A7AE4" };
 color: #ffff;
-border-radius: 5px;
+border-radius: ${({radius}) => radius ? "5px" : null};
 text-transform: inherit;
 padding: 15px;
 font-size: 1.1rem;
 outline: none;
 cursor: pointer;
 border: none;
+width: ${({wide}) => handlewidth(wide) },
 `

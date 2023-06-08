@@ -1,33 +1,40 @@
-import { Button, Typography, makeStyles } from '@material-ui/core';
-import React from 'react';
+import {Typography, makeStyles } from '@material-ui/core';
 import logo from "../img/Logo.png";
 import HeroBanner from "../img/banner.jpg"
 import { CasflixButton} from "../styled/styledcomponents"
 import { CasflixInput } from '../styled/styledcomponents';
+import SignUp from './SignUp';
+import {useState} from "react";
 
 
 const Login = () => {
     const classes = useStyles();
-
-
+    const[signIn, setSignIn] = useState(false);
     return (
         <div className={classes.root}>
             <img src={logo} alt="logo" className={classes.logo} />
-            <CasflixButton className={classes.session}>Iniciar sesión</CasflixButton>
+            <CasflixButton radius className={classes.session}>Iniciar sesión</CasflixButton>
             <div className={classes.info}>
-                <Typography variant='h4' gutterBottom>
-                    Unlimited films, TV programs and more.
-                </Typography>
-                <Typography variant='h5' gutterBottom>
-                    Watch anywhere. Cancel at any time.
-                </Typography>
-                <Typography variant='h6' gutterBottom>
-                    Ready to watch ? Enter your email to create or restart your memership..
-                </Typography>
-            </div>
-            <div className={classes.inputBlock}>
-                <CasflixInput placeholder= "email addres" id="email" label="Email" />
-                <CasflixButton>GET STARTER</CasflixButton>
+                {!signIn ? (
+                <SignUp/>
+                ): (
+                    <>
+                        <Typography variant='h4' gutterBottom>
+                        Unlimited films, TV programs and more.
+                        </Typography>
+                        <Typography variant='h5' gutterBottom>
+                            Watch anywhere. Cancel at any time.
+                        </Typography>
+                        <Typography variant='h6' gutterBottom>
+                            Ready to watch ? Enter your email to create or restart your memership..
+                        </Typography>
+                        <div className={classes.inputBlock}>
+                            <CasflixInput placeholder= "email addres" id="email" label="Email" />
+                            <CasflixButton wide='medium' oneClick={() => setSignIn(true)} radius>GET STARTER</CasflixButton>
+                        </div>
+                    </>
+                    )
+                };
             </div>
         </div>
     )
@@ -71,7 +78,7 @@ const useStyles = makeStyles((theme) => ({
         },
         "& h5":{
             fontWeight: 400,
-        }
+        },
 
     }
 

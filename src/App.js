@@ -8,7 +8,7 @@ import Profile from './Pages/Profile';
 
 
 function App() {
-  const user = "Keka";
+  const user = null;
   const classes = useStyles();
   return (
     <div className={classes.root}>
