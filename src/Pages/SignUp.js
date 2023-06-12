@@ -1,6 +1,5 @@
 import {Typography, makeStyles} from "@material-ui/core";
-import React from 'react';
-import useState from 'react';
+import {useState } from 'react';
 import { CasflixButton, CasflixInput } from "../styled/styledcomponents";
 import { auth } from "../firebase";
 
@@ -8,30 +7,36 @@ const SignUp = () => {
     const classes = useStyles();
     const [email, setEmail] = useState ("");
     const [password, setPassword] = useState("");
+
     const signIn= (e) => {
         e.preventDefault();
+        auth.signInWithEmailAndPassword(email, password)
+        .then((authUser) => console.log(authUser.email))
+        .cath((err) => alert(err.messasge));
     };
 
     const register = (e) => {
         e.preventDefault();
-        auth.createUserWithEmailPassword(email, password, signIn)
-            .then()
-        .catch()
+        auth.createUserWithEmailAndPassword(email, password, signIn)
+            .then((authUser) => console.log(authUser))
+        .catch(err => alert (err.message))
     }
 
 
     return (
         <div className={classes.root}>
-            <Typography variant= 'h5' align= 'left'>SignUp</Typography>
+            <Typography variant= 'h5' align= 'left'>Sign In</Typography>
             <form className={classes.form}>
                 <CasflixInput
                     value={email}
+                    type= "email"
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Email"
                     className={classes.email}/>
 
                 <CasflixInput
                     value={password}
+                    type="password"
                     placeholder="password"
                     onChange={(e) => setPassword(e.target.value)}
                     className={classes.password}
@@ -40,7 +45,7 @@ const SignUp = () => {
                 <CasflixButton onClick={signIn}
                     type="submit"
                     wide="medium"
-
+                    radius
                 >
                     Sign In
                 </CasflixButton>
