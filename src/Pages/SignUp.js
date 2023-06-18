@@ -1,38 +1,41 @@
-import {Typography, makeStyles} from "@material-ui/core";
-import {useState } from 'react';
+import { Typography, makeStyles } from "@material-ui/core";
+import { useState } from 'react';
 import { CasflixButton, CasflixInput } from "../styled/styledcomponents";
 import { auth } from "../firebase";
+import { useHistory } from "react-router-dom";
 
 const SignUp = () => {
     const classes = useStyles();
-    const [email, setEmail] = useState ("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const history = useHistory();
 
-    const signIn= (e) => {
+    const signIn = (e) => {
         e.preventDefault();
         auth.signInWithEmailAndPassword(email, password)
-        .then((authUser) => console.log(authUser.email))
-        .cath((err) => alert(err.messasge));
+            .then((authUser) => history.push("/"))
+            .catch((err) => alert(err.message));
     };
 
     const register = (e) => {
         e.preventDefault();
-        auth.createUserWithEmailAndPassword(email, password, signIn)
-            .then((authUser) => console.log(authUser))
-        .catch(err => alert (err.message))
-    }
+        auth.createUserWithEmailAndPassword(email, password)
+            .then((authUser) => history.push("/"))
+            .catch((err) => alert(err.message));
+    };
 
 
     return (
         <div className={classes.root}>
-            <Typography variant= 'h5' align= 'left'>Sign In</Typography>
+            <Typography variant='h5' align='left'>Sign In</Typography>
             <form className={classes.form}>
                 <CasflixInput
                     value={email}
-                    type= "email"
+                    type="email"
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Email"
-                    className={classes.email}/>
+                    className={classes.email}
+                />
 
                 <CasflixInput
                     value={password}
@@ -49,19 +52,20 @@ const SignUp = () => {
                 >
                     Sign In
                 </CasflixButton>
+
                 <Typography variant='subtitle2'>
                     New to Casoniflix? {"  "}
-                <span 
-                    className={classes.signupLink}
-                    onClick = {register}
-                >
-                    Sign Up now. {" "}
-                </span>
+                    <span
+                        className={classes.signupLink}
+                        onClick={register}
+                    >
+                        Sign Up now. {" "}
+                    </span>
                 </Typography>
             </form>
         </div>
-    )
-}
+    );
+};
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -73,29 +77,29 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: "column",
         justifyContent: "space-evenly",
         alignItems: "center",
+    },
 
-    form:{
+    form: {
         width: "80%",
         display: "flex",
         flexDirection: "column",
     },
 
-    email:{
+    email: {
         marginBottom: theme.spacing(2),
     },
 
-    password:{
+    password: {
         marginBottom: theme.spacing(4),
     },
 
-    signupLink:{
+    signupLink: {
         color: "#fff",
         cursor: "pointer",
-        "&:hover":{
+        "&:hover": {
             textDecoration: "underline",
         },
     },
-
-}}));
+}));
 
 export default SignUp;

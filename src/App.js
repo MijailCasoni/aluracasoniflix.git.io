@@ -5,17 +5,40 @@ import Login  from './Pages/Login';
 import Paypal from './Pages/Paypal';
 import Home from './Pages/Home';
 import Profile from './Pages/Profile';
+import { auth} from './firebase';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectUser } from './features/counter/UserSlice.js';
+import {login, logout} from './features/counter/UserSlice.js';
 
 
 function App() {
-  const user = null;
+  const user = useSelector(selectUser);
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+
+    return auth.onAuthStateChanged((userAuth) => {
+          if (userAuth) {
+            dispatch(login({
+              uid: userAuth.uid,
+              email: userAuth.email
+            }))
+          } else {
+            dispatch(logout)
+          }
+        });
+  }, [dispatch])
+
   return (
     <div className={classes.root}>
         <Router>
           {
-            !user ? (<Login/>):(
               <Switch>
+                <Route path="/login">
+                  <Login/>
+                </Route>
                 <Route path="/profile">
                   <Profile/>
                 </Route>
@@ -26,7 +49,6 @@ function App() {
                   <Home/>
                 </Route>
               </Switch>
-            )
           }
         </Router>
 

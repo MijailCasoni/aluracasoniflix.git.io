@@ -4,16 +4,26 @@ import Header from "../componentes/Header";
 import avatarflix from "../img/avatar-yellow.png"
 import Plans from "../componentes/Plans";
 import { CasflixButton} from "../styled/styledcomponents";
+import {auth} from '../firebase';
+import { useHistory } from "react-router-dom";
 
 
 const Profile = () => {
     const classes = useStyles();
+    const history = useHistory();
+
+    const signout = () => {
+        auth.signOut();
+        history.push("/login");
+
+    };
+
     return (
         <div className = {classes.root}>
             <Header/>
             <Typography variant="h3">Configuración de cuenta</Typography>
             <div className = {classes.body}>
-                <div className={classes.info}>  
+                <div className={classes.info}>
                     <img src={avatarflix} alt="avatar"/>
                     <div className={classes.details}>
                         <div className={classes.plans}>
@@ -22,7 +32,7 @@ const Profile = () => {
                             <Plans cost={7.95}> Casoniflix Standar</Plans>
                             <Plans cost={11.95}> Casoniflix Básico</Plans>
                             <Plans wide="medium"  color="gray" cost={12.95}>Casoniflix Premium</Plans>
-                            <CasflixButton wide="fullWidth" >Cerrar Sesión</CasflixButton>
+                            <CasflixButton onClick = {signout} wide="fullWidth" >Cerrar Sesión</CasflixButton>
                         </div>
                     </div>
                 </div>
